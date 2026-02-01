@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Interview Tracking</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>Live Interview Tracking System</h2>
+
+<div class="box">
+    <input id="username" placeholder="Username">
+    <input id="email" placeholder="Email">
+
+    <select id="mode">
+        <option value="Call">Call</option>
+        <option value="Mail">Mail</option>
+    </select>
+
+    <select id="type">
+        <option value="Prime/Digital">Prime / Digital</option>
+        <option value="Ninja">Ninja</option>
+    </select>
+
+    <select id="decision">
+        <option value="Accepted">Accepted</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Not Able to Pick">Not Able to Pick</option>
+        <option value="Not Able to Access Mail">Not Able to Access Mail</option>
+    </select>
+
+    <button onclick="submitForm()">Submit</button>
+
+    <div class="counts">
+    <div class="card accepted">
+        <h3>Accepted</h3>
+        <span id="acceptedCount">0</span>
+    </div>
+
+    <div class="card rejected">
+        <h3>Rejected</h3>
+        <span id="rejectedCount">0</span>
+    </div>
+
+    <div class="card pick">
+        <h3>Not Able to Pick</h3>
+        <span id="pickCount">0</span>
+    </div>
+
+    <div class="card mail">
+        <h3>Mail Not Accessible</h3>
+        <span id="mailCount">0</span>
+    </div>
+</div>
+
+    <p id="msg"></p>
+</div>
+
+<canvas id="chart"></canvas>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
