@@ -11,21 +11,14 @@ function submitForm() {
     };
 
     fetch("/submit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            username: username.value,
-            email: email.value,
-            mode: mode.value,
-            type: type.value,
-            decision: decision.value
-        })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
     })
     .then(res => res.json())
     .then(res => {
         msg.innerText = res.error || "Submitted successfully!";
     });
-
 }
 
 function updateChart(data) {
@@ -52,13 +45,6 @@ function updateChart(data) {
         }
     });
 }
-
-function refresh() {
-    fetch("/stats")
-        .then(r => r.json())
-        .then(updateChart);
-}
-
 function updateCounts() {
     fetch("/live-counts")
         .then(r => r.json())
@@ -79,7 +65,11 @@ socket.on("update", () => {
 // Initial load
 updateCounts();
 
+function refresh() {
+    fetch("/stats")
+        .then(r => r.json())
+        .then(updateChart);
+}
 
 socket.on("update", refresh);
 refresh();
-
