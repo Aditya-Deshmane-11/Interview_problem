@@ -11,14 +11,21 @@ function submitForm() {
     };
 
     fetch("/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: username.value,
+            email: email.value,
+            mode: mode.value,
+            type: type.value,
+            decision: decision.value
+        })
     })
     .then(res => res.json())
     .then(res => {
         msg.innerText = res.error || "Submitted successfully!";
     });
+
 }
 
 function updateChart(data) {
@@ -75,3 +82,4 @@ updateCounts();
 
 socket.on("update", refresh);
 refresh();
+
