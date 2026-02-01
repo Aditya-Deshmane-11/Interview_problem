@@ -8,10 +8,11 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 # 🔹 MySQL connection (phpMyAdmin / XAMPP)
 def get_db():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",        # XAMPP default
-        database="interview_tracking"
+        host="db4free.net",
+        user="adityadeshmane",
+        password="Aditya#123",
+        database="responses",
+        port=3306
     )
 
 @app.route("/")
@@ -110,5 +111,6 @@ def stats():
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=10000)
+
 
 
