@@ -48,11 +48,12 @@ def live_counts():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    data = request.json
-    db = get_db()
-    cur = db.cursor()
-
     try:
+        data = request.json
+        print(data)  # debug
+
+        db = get_db()
+        cur = db.cursor()
         cur.execute("""
             INSERT INTO responses
             (username, email, mode, interview_type, decision)
@@ -65,14 +66,13 @@ def submit():
             data["decision"]
         ))
         db.commit()
-    except mysql.connector.IntegrityError:
-        return jsonify({"error": "User already submitted"}), 400
-    finally:
         cur.close()
         db.close()
+        return jsonify({"success": True})
+    except Exception as e:
+        print("ERROR:", e)
+        return jsonify({"error": str(e)}), 500
 
-    socketio.emit("update")
-    return jsonify({"success": True})
 
 def get_db():
     return mysql.connector.connect(
@@ -110,4 +110,5 @@ def stats():
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=10000)
+
 
